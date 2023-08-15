@@ -24,7 +24,7 @@ export default class SuaBacSi extends Component {
             soChungChi: ""
         }
     }
-    mo_hop_thoai(BacSi, Th_Nguoi_dung) {
+    mo_hop_thoai(BacSi) {
         this.setState({
             ma: BacSi.ma,
             hoTen: BacSi.hoTen,

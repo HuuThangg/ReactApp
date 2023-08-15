@@ -21,7 +21,8 @@ export default class DanhSachNoiGioiThieu extends React.Component {
             id: '',
             ten: '',
             diachi: '',
-            gtTim: ''
+            gtTim: '',
+            So: 0
         }
     }
     Tim() {
@@ -35,7 +36,7 @@ export default class DanhSachNoiGioiThieu extends React.Component {
             Alert.alert("Thông báo", "Không tìm thấy thông tin")
     }
 
-    refresh_Danh_sach_gioi_thieu(id) {
+    refresh_Danh_sach_gioi_thieu() {
         this.setState({ key: id })
         this.refs.Th_Danh_sach.scrollToEnd();
     }
@@ -67,8 +68,8 @@ export default class DanhSachNoiGioiThieu extends React.Component {
                     //debugger
                     data.dsNoiGioiThieu.unshift(noigioithieu)
                     console.log(responseData)
-                    refresh_Danh_sach_gioi_thieu(this.state.id)
-                    Alert.alert('Thêm thành công')
+                    //this.parentFlatList.refresh_Danh_sach_gioi_thieu()
+                    Alert.alert('Thông báo', 'Thêm thành công')
                 }
             })
             .catch((err) => {
@@ -137,13 +138,13 @@ export default class DanhSachNoiGioiThieu extends React.Component {
                                 fontSize: 20
                             }}>Insert</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.5}
+                        {/* <TouchableOpacity activeOpacity={0.5}
                             style={styles.thuc_thi}>
                             <Text style={{
                                 color: '#fff',
                                 fontSize: 20
                             }}>Delete</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
 
                 </View>

@@ -1,5 +1,6 @@
 let data = {
-    "dsBacSi": []
+    "dsBacSi": [],
+    "dsNoiGioiThieu": []
 }
 
 export { data }

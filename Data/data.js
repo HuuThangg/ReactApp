@@ -1,6 +1,7 @@
 let data = {
     "dsBacSi": [],
-    "dsNoiGioiThieu": []
+    "dsNoiGioiThieu": [],
+    "dsUser": []
 }
 
 export { data }

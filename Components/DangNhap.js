@@ -8,44 +8,68 @@ import {
     StyleSheet,
     Alert
 } from "react-native"
-//import api from '../api.services'
-
+import api from '../api.services'
+import md5 from 'md5';
 const URL_server = `http://mqsoft.ddns.net:6767`
+const URL = `https://react-native-test.onrender.com`
 class DangNhap extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             tendangnhap: '',
-            matkhau: '',
-            error: ''
+            pass: '',
+            error: '',
         }
     }
-
     KiemTraDangNhap() {
-        // debugger
-        if (this.state.tendangnhap == '' || this.state.matkhau == '') {
+        //debugger
+        if (this.state.tendangnhap == '' || this.state.pass == '') {
             Alert.alert("Thông báo", "Tên đăng nhập hoặc mật khẩu không được để trống")
-            return false;
         } else
-            fetch(`${URL_server}/EmrUseridLogin/GetEmrUseridLogin`, {
+            //     // debugger
+            //     fetch(`${URL_server}/EmrUseridLogin/GetEmrUseridLogin`, {
+            //         method: 'POST',
+            //         headers: {
+            //             'Accept': 'application/json',
+            //             'Content-Type': 'application/json',
+            //         },
+            //         body: JSON.stringify({
+            //             userid: this.state.tendangnhap,
+            //             password: this.HasPass(this.state.pass)
+            //         })
+            //     })
+            //         .then((response) => response.json())
+            //         .then((responseData) => {
+            //             //debugger
+            //             //console.log(responseData)
+            //             if (responseData.userid != this.state.tendangnhap) {
+            //                 this.setState({ "error": "Đăng nhập thất bại" })
+            //             } else {
+            //                 this.setState({ "error": "Đăng nhập thành công" })
+            //             }
+            //         })
+            //         .catch((error) => {
+            //             console.log(error);
+            //         })
+
+            fetch(`${URL}/FindUser`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    userid: this.state.tendangnhap,
-                    password: this.state.matkhau
+                    tendangnhap: this.state.tendangnhap,
+                    pass: md5(this.state.pass)
                 })
             })
                 .then((response) => response.json())
                 .then((responseData) => {
-                    //debugger
-                    //console.log(responseData)
-                    if (responseData.userid != this.state.tendangnhap) {
-                        this.setState({ "error": "Đăng nhập thất bại" })
-                    } else {
+                    console.log(responseData)
+                    if (responseData.ket_qua == true) {
                         this.setState({ "error": "Đăng nhập thành công" })
+                    } else {
+                        this.setState({ "error": "Đăng nhập thất bại" })
                     }
                 })
                 .catch((error) => {
@@ -77,8 +101,8 @@ class DangNhap extends React.Component {
                             style={styles.img_icon} />
                         <TextInput placeholder="Mật khẩu" secureTextEntry
                             style={styles.textinput}
-                            value={this.state.matkhau}
-                            onChangeText={(matkhau) => this.setState({ matkhau })}
+                            value={this.state.pass}
+                            onChangeText={(pass) => this.setState({ pass })}
                         />
                     </View>
 

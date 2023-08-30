@@ -10,8 +10,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "md5": "^2.3.0",
     "react": "18.2.0",
     "react-native": "0.72.3",
+    "react-native-asset": "^2.1.1",
     "react-native-modalbox": "^2.0.2",
     "react-native-popup-menu": "^0.16.1",
     "react-native-swiper": "^1.6.0"

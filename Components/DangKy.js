@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, Platform } from 'react-native'
 import { data } from "../Data/data";
-const URL_server = `https://services-react.onrender.com`
+import md5 from 'md5';
+const URL_server = `https://react-native-test.onrender.com`
 class DangKy extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             hoten: '',
             sodt: '',
-            pass: ''
+            pass: '',
+            tendangnhap: ''
         }
     }
     them() {
@@ -27,7 +29,8 @@ class DangKy extends React.Component {
                     let user = {
                         hoten: this.state.hoten,
                         sodt: this.state.sodt,
-                        pass: this.state.pass
+                        tendangnhap: this.state.tendangnhap,
+                        pass: md5(this.state.pass)
                     }
                     fetch(`${URL_server}/insertUser`, {
                         method: 'POST',
@@ -38,7 +41,8 @@ class DangKy extends React.Component {
                         body: JSON.stringify({
                             hoten: this.state.hoten,
                             sodt: this.state.sodt,
-                            pass: this.state.pass
+                            tendangnhap: this.state.tendangnhap,
+                            pass: md5(this.state.pass)
                         })
                     })
                         .then((response) => response.json())
@@ -46,7 +50,7 @@ class DangKy extends React.Component {
                             console.log(responseData)
                             if (responseData.noi_dung == 1) {
                                 data.dsUser.push(user)
-                                Alert.alert("Thông báo", "Thêm thành công")
+                                Alert.alert("Thông báo", "Đăng ký thành công")
                             }
                         })
                         .catch((err) => {
@@ -75,6 +79,11 @@ class DangKy extends React.Component {
                             style={styles.input}
                             value={this.state.sodt}
                             onChangeText={(sodt) => this.setState({ sodt })} />
+                        <Text style={styles.text}>Tên đăng nhập</Text>
+                        <TextInput placeholder="Tên đăng nhập"
+                            style={styles.input}
+                            value={this.state.tendangnhap}
+                            onChangeText={(tendangnhap) => this.setState({ tendangnhap })} />
                         <Text style={styles.text}>Password</Text>
                         <TextInput placeholder="Password" secureTextEntry //ký tự * khi nhập pass
                             style={styles.input}
